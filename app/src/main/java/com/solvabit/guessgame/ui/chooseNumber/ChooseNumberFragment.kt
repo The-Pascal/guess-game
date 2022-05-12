@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker.OnValueChangeListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.solvabit.guessgame.R
 import com.solvabit.guessgame.databinding.FragmentChooseNumberBinding
 
 
 class ChooseNumberFragment : Fragment() {
 
     private lateinit var binding: FragmentChooseNumberBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,7 +29,13 @@ class ChooseNumberFragment : Fragment() {
     }
 
     private fun initializeButtonClicks() {
-
+        binding.startGameButton.setOnClickListener {
+            this.findNavController().navigate(
+                ChooseNumberFragmentDirections.actionChooseNumberFragmentToGuessNumberFragment(
+                    binding.numberPicker.value
+                )
+            )
+        }
     }
 
     private fun initializeNumberPicker() {

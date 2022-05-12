@@ -1,19 +1,97 @@
 package com.solvabit.guessgame.ui.guessNumber
 
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.solvabit.guessgame.R
+import com.solvabit.guessgame.databinding.CustomDialogBinding
+import com.solvabit.guessgame.databinding.FragmentGuessNumberBinding
+import com.solvabit.guessgame.databinding.TilesCardBinding
+import com.solvabit.guessgame.models.Tile
+import kotlin.random.Random
+
+
+private const val TAG = "GuessNumberFragment"
 
 class GuessNumberFragment : Fragment() {
+
+    private val args: GuessNumberFragmentArgs by navArgs()
+    private lateinit var binding: FragmentGuessNumberBinding
+    private lateinit var viewModel: GuessNumberViewModel
+    private val randPosition = Random.nextInt(1, 10)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guess_number, container, false)
+    ): View {
+        binding = FragmentGuessNumberBinding.inflate(inflater)
+        viewModel = ViewModelProvider(this)[GuessNumberViewModel::class.java]
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        val adapter = TilesRecycleAdapter()
+        binding.tilesRecyclerView.adapter = adapter
+        adapter.tileSelectedListener = object : TilesRecycleAdapter.TileSelectedListener {
+            override fun onTileSelected(tile: Tile, tilesCardBinding: TilesCardBinding) {
+                when (tile.position) {
+                    randPosition -> {
+                        onCorrectTileSelected(tile, tilesCardBinding)
+                    }
+                    else -> {
+                        onWrongTileSelected(tile, tilesCardBinding)
+                    }
+                }
+            }
+        }
+
+        viewModel.showDialog.observe(viewLifecycleOwner, Observer {
+            it?.let { isCorrect ->
+                showWinDialog(isCorrect, requireContext())
+            }
+        })
+
+        return binding.root
+    }
+
+    private fun showWinDialog(isCorrect: Boolean, context: Context) {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        val dialogBinding = CustomDialogBinding.inflate(LayoutInflater.from(context))
+        dialog.setContentView(dialogBinding.root)
+        when(isCorrect) {
+            true -> {
+                dialogBinding.headingDialog.text = resources.getString(R.string.you_win)
+            }
+            false -> {
+                dialogBinding.headingDialog.text = resources.getString(R.string.you_lose)
+            }
+        }
+        dialogBinding.buttonDialog.text = resources.getString(R.string.play_again)
+        dialogBinding.buttonDialog.setOnClickListener {
+            this.findNavController().popBackStack()
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun onCorrectTileSelected(tile: Tile, tilesCardBinding: TilesCardBinding) {
+        tilesCardBinding.tileCard.setCardBackgroundColor(resources.getColor(R.color.purple_200))
+        tilesCardBinding.textViewTile.text = viewModel.correctTileSelected(tile.position, args.chosenNumber)
+    }
+
+    private fun onWrongTileSelected(tile: Tile, tilesCardBinding: TilesCardBinding) {
+        tilesCardBinding.tileCard.setCardBackgroundColor(resources.getColor(R.color.teal_200))
+        tilesCardBinding.textViewTile.text = viewModel.wrongTileSelected(tile.position)
     }
 }

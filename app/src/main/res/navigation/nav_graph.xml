@@ -9,10 +9,19 @@
         android:id="@+id/chooseNumberFragment"
         android:name="com.solvabit.guessgame.ui.chooseNumber.ChooseNumberFragment"
         android:label="fragment_choose_number"
-        tools:layout="@layout/fragment_choose_number" />
+        tools:layout="@layout/fragment_choose_number" >
+        <action
+            android:id="@+id/action_chooseNumberFragment_to_guessNumberFragment"
+            app:destination="@id/guessNumberFragment" />
+    </fragment>
     <fragment
         android:id="@+id/guessNumberFragment"
         android:name="com.solvabit.guessgame.ui.guessNumber.GuessNumberFragment"
         android:label="fragment_guess_number"
-        tools:layout="@layout/fragment_guess_number" />
+        tools:layout="@layout/fragment_guess_number" >
+        <argument
+            android:name="chosenNumber"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>
