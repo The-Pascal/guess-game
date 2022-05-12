@@ -25,30 +25,29 @@ class GuessNumberViewModel: ViewModel() {
     }
 
     fun correctTileSelected(position: Int, chosenNumber: Int): String {
+        showDialog(true)
         _tilesList.value?.toMutableList()?.let {
             it[position].isSelected = true
             it[position].text = chosenNumber.toString()
             _tilesList.value = it
         }
-        remainingChances = remainingChances.minus(1)
-        startNavigation(true)
         return chosenNumber.toString()
     }
 
     fun wrongTileSelected(position: Int): String {
+        remainingChances = remainingChances.minus(1)
+        if(remainingChances<=0) {
+            showDialog(false)
+        }
         _tilesList.value?.toMutableList()?.let {
             it[position].isSelected = true
             it[position].text = "Uh huh!"
             _tilesList.value = it
         }
-        remainingChances = remainingChances.minus(1)
-        if(remainingChances<=0) {
-            startNavigation(false)
-        }
         return "Uh huh!"
     }
 
-    private fun startNavigation(isCorrect: Boolean) {
+    private fun showDialog(isCorrect: Boolean) {
         _showDialog.value = isCorrect
     }
 }

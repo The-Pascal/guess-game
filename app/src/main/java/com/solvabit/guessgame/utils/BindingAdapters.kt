@@ -15,11 +15,3 @@ fun bindTilesRecyclerView(recyclerView: RecyclerView, data: List<Tile>?) {
     val adapter = recyclerView.adapter as TilesRecycleAdapter
     adapter.submitList(data)
 }
-
-@BindingAdapter("cardBackground")
-fun bindCardBackground(cardView: CardView, tile: Tile?) {
-    tile?.let {
-//        cardView.setCardBackgroundColor(R.color.teal_700)
-        Log.i(TAG, "bindCardBackground: ${tile.position} + ${tile.isSelected}")
-    }
-}

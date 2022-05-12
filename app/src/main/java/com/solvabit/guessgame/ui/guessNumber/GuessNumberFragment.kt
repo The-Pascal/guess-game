@@ -3,16 +3,17 @@ package com.solvabit.guessgame.ui.guessNumber
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.solvabit.guessgame.R
 import com.solvabit.guessgame.databinding.CustomDialogBinding
 import com.solvabit.guessgame.databinding.FragmentGuessNumberBinding
@@ -69,7 +70,7 @@ class GuessNumberFragment : Fragment() {
         dialog.setCancelable(false)
         val dialogBinding = CustomDialogBinding.inflate(LayoutInflater.from(context))
         dialog.setContentView(dialogBinding.root)
-        when(isCorrect) {
+        when (isCorrect) {
             true -> {
                 dialogBinding.headingDialog.text = resources.getString(R.string.you_win)
             }
@@ -86,12 +87,19 @@ class GuessNumberFragment : Fragment() {
     }
 
     private fun onCorrectTileSelected(tile: Tile, tilesCardBinding: TilesCardBinding) {
-        tilesCardBinding.tileCard.setCardBackgroundColor(resources.getColor(R.color.purple_200))
-        tilesCardBinding.textViewTile.text = viewModel.correctTileSelected(tile.position, args.chosenNumber)
+        tilesCardBinding.tileCard.setBackgroundColor(resources.getColor(R.color.green))
+        tilesCardBinding.textViewTile.text =
+            viewModel.correctTileSelected(tile.position, args.chosenNumber)
     }
 
     private fun onWrongTileSelected(tile: Tile, tilesCardBinding: TilesCardBinding) {
-        tilesCardBinding.tileCard.setCardBackgroundColor(resources.getColor(R.color.teal_200))
+        if(viewModel.tilesList.value?.get(tile.position)?.isSelected == true) {
+            Snackbar.make(binding.root, "Please select some other tile!", Snackbar.LENGTH_SHORT)
+                .show()
+            Log.i(TAG, "onWrongTileSelected: ${viewModel.tilesList.value?.get(tile.position)?.isSelected}")
+            return
+        }
+        tilesCardBinding.tileCard.setBackgroundColor(resources.getColor(R.color.pink_200))
         tilesCardBinding.textViewTile.text = viewModel.wrongTileSelected(tile.position)
     }
 }
