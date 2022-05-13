@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.solvabit.guessgame.models.Tile
+import com.solvabit.guessgame.utils.Event
 
 
 class GuessNumberViewModel: ViewModel() {
@@ -15,6 +16,10 @@ class GuessNumberViewModel: ViewModel() {
     private val _showDialog = MutableLiveData<Boolean>()
     val showDialog: LiveData<Boolean>
         get() = _showDialog
+
+    private val _navigateUp = MutableLiveData<Event<Boolean>>()
+    val navigateUp: LiveData<Event<Boolean>>
+        get() = _navigateUp
 
     private val _remainingChances = MutableLiveData<Int>()
     val remainingChances: LiveData<Int>
@@ -52,5 +57,9 @@ class GuessNumberViewModel: ViewModel() {
 
     private fun showDialog(isCorrect: Boolean) {
         _showDialog.value = isCorrect
+    }
+
+    fun startNavigation() {
+        _navigateUp.value = Event(true)
     }
 }

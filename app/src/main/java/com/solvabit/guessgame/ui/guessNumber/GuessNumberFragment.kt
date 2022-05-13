@@ -21,15 +21,13 @@ import com.solvabit.guessgame.databinding.TilesCardBinding
 import com.solvabit.guessgame.models.Tile
 import kotlin.random.Random
 
-
-private const val TAG = "GuessNumberFragment"
-
 class GuessNumberFragment : Fragment() {
 
     private val args: GuessNumberFragmentArgs by navArgs()
     private lateinit var binding: FragmentGuessNumberBinding
     private lateinit var viewModel: GuessNumberViewModel
     private val randPosition = Random.nextInt(1, 10)
+    private var dialog: Dialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +38,23 @@ class GuessNumberFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
+        addRecycleAdapter()
+
+        addObservers()
+
+        return binding.root
+    }
+
+    private fun addObservers() {
+        viewModel.showDialog.observe(viewLifecycleOwner, Observer {
+            it?.let { isCorrect ->
+                if (dialog == null)
+                    showWinDialog(isCorrect, requireContext())
+            }
+        })
+    }
+
+    private fun addRecycleAdapter() {
         val adapter = TilesRecycleAdapter()
         binding.tilesRecyclerView.adapter = adapter
         adapter.tileSelectedListener = object : TilesRecycleAdapter.TileSelectedListener {
@@ -54,22 +69,33 @@ class GuessNumberFragment : Fragment() {
                 }
             }
         }
-
-        viewModel.showDialog.observe(viewLifecycleOwner, Observer {
-            it?.let { isCorrect ->
-                showWinDialog(isCorrect, requireContext())
-            }
-        })
-
-        return binding.root
     }
 
     private fun showWinDialog(isCorrect: Boolean, context: Context) {
-        val dialog = Dialog(context)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
+        dialog = Dialog(context)
         val dialogBinding = CustomDialogBinding.inflate(LayoutInflater.from(context))
-        dialog.setContentView(dialogBinding.root)
+        createDialog(isCorrect, dialogBinding)
+        dialog?.apply {
+            requestWindowFeature(Window.FEATURE_NO_TITLE)
+            setCancelable(false)
+            setContentView(dialogBinding.root)
+            show()
+        }
+
+        viewModel.navigateUp.observe(viewLifecycleOwner, Observer {
+            it.getContentIfNotHandled()?.let { navigate ->
+                if (navigate) {
+                    this.findNavController().popBackStack()
+                    dialog?.dismiss()
+                }
+            }
+        })
+    }
+
+    private fun createDialog(
+        isCorrect: Boolean,
+        dialogBinding: CustomDialogBinding
+    ) {
         when (isCorrect) {
             true -> {
                 dialogBinding.headingDialog.text = resources.getString(R.string.you_win)
@@ -82,10 +108,8 @@ class GuessNumberFragment : Fragment() {
         }
         dialogBinding.buttonDialog.text = resources.getString(R.string.play_again)
         dialogBinding.buttonDialog.setOnClickListener {
-            this.findNavController().popBackStack()
-            dialog.dismiss()
+            viewModel.startNavigation()
         }
-        dialog.show()
     }
 
     private fun onCorrectTileSelected(tile: Tile, tilesCardBinding: TilesCardBinding) {
@@ -95,10 +119,9 @@ class GuessNumberFragment : Fragment() {
     }
 
     private fun onWrongTileSelected(tile: Tile, tilesCardBinding: TilesCardBinding) {
-        if(viewModel.tilesList.value?.get(tile.position)?.isSelected == true) {
+        if (viewModel.tilesList.value?.get(tile.position)?.isSelected == true) {
             Snackbar.make(binding.root, "Please select some other tile!", Snackbar.LENGTH_SHORT)
                 .show()
-            Log.i(TAG, "onWrongTileSelected: ${viewModel.tilesList.value?.get(tile.position)?.isSelected}")
             return
         }
         tilesCardBinding.tileCard.setBackgroundResource(R.drawable.tile_active_background)

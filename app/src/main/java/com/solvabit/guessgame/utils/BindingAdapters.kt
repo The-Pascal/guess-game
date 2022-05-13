@@ -20,7 +20,7 @@ fun bindTilesRecyclerView(recyclerView: RecyclerView, data: List<Tile>?) {
 fun bindHeartImage(imageView: ImageView, remaining: Int?, position: Int) {
     remaining?.let {
         if(position>remaining)
-            imageView.setColorFilter(ContextCompat.getColor(imageView.context, R.color.grey))
+            imageView.setColorFilter(ContextCompat.getColor(imageView.context, R.color.pink_900))
         else
             imageView.setColorFilter(ContextCompat.getColor(imageView.context, R.color.red_800))
     }

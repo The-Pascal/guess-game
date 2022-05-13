@@ -20,35 +20,27 @@
 
             <TextView
                 android:id="@+id/heading_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:fontFamily="@font/bungee_shade"
-                android:text="GUESS GAME"
-                android:textColor="@color/white"
-                android:textSize="30sp"
+                style="@style/main_heading_style"
+                android:text="@string/app_name"
+                app:layout_constraintBottom_toTopOf="@+id/edit_textView"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/sub_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Choose any number to play the game"
-                android:textColor="@color/white"
-                android:textSize="14sp"
+                style="@style/sub_text_style"
+                android:text="@string/choose_any_number_to_play_the_game"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/heading_textView" />
 
             <ImageView
                 android:id="@+id/add_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/plus_minus_bg"
-                android:padding="10dp"
-                android:layout_marginRight="35dp"
+                style="@style/plus_minus_style"
+                android:layout_marginEnd="35dp"
+                android:contentDescription="@string/plus_button"
                 android:src="@drawable/ic_baseline_add_24"
                 app:layout_constraintBottom_toBottomOf="@+id/edit_textView"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -56,26 +48,20 @@
 
             <EditText
                 android:id="@+id/edit_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:text="0"
-                android:maxLength="3"
-                android:textColor="@color/white"
-                android:textSize="90sp"
+                style="@style/choose_number_edit_text_style"
+                android:text="@string/_0"
                 app:layout_constraintBottom_toTopOf="@+id/start_game_button"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/heading_textView"
                 app:layout_constraintVertical_bias="0.515" />
 
             <ImageView
                 android:id="@+id/minus_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/plus_minus_bg"
-                android:padding="10dp"
-                android:layout_marginLeft="35dp"
+                style="@style/plus_minus_style"
+                android:layout_marginStart="35dp"
+                android:contentDescription="@string/minus_button"
                 android:src="@drawable/ic_baseline_horizontal_rule_24"
                 app:layout_constraintBottom_toBottomOf="@+id/edit_textView"
                 app:layout_constraintStart_toStartOf="parent"
@@ -83,11 +69,26 @@
 
             <Button
                 android:id="@+id/start_game_button"
-                android:text="PLAY"
+                style="@style/default_button_style"
+                android:text="@string/play"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                style="@style/default_button_style" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_textView" />
+
+            <TextView
+                android:id="@+id/play_store_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/other_apps"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/pink_200"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/start_game_button"
+                app:layout_constraintStart_toStartOf="@+id/start_game_button"
+                app:layout_constraintTop_toBottomOf="@+id/start_game_button" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

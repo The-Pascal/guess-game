@@ -5,12 +5,13 @@
       <map>
         <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/drawable/button_background.xml" value="0.1575" />
         <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/drawable/heart_filled_icon.xml" value="0.1575" />
+        <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/drawable/heart_icon.xml" value="0.1575" />
         <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/drawable/plus_minus_bg.xml" value="0.1575" />
         <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/drawable/tile_active_background.xml" value="0.1575" />
         <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/drawable/tile_background.xml" value="0.1575" />
         <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/layout/activity_main.xml" value="0.24010416666666667" />
-        <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/layout/custom_dialog.xml" value="0.2" />
-        <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/layout/fragment_choose_number.xml" value="0.176" />
+        <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/layout/custom_dialog.xml" value="0.176" />
+        <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/layout/fragment_choose_number.xml" value="0.4" />
         <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/layout/fragment_guess_number.xml" value="0.176" />
         <entry key="..\:/Users/chaha/AndroidStudioProjects/GuessGame/app/src/main/res/layout/tiles_card.xml" value="0.264" />
       </map>

@@ -5,4 +5,13 @@
     <string name="you_lose">BETTER LUCK NEXT TIME!</string>
     <string name="play_again">Play Again</string>
     <string name="guess_game">Guess Game</string>
+    <string name="choose_any_number_to_play_the_game">Choose any number to play the game</string>
+    <string name="_0">0</string>
+    <string name="plus_button">Plus button</string>
+    <string name="minus_button">minus button</string>
+    <string name="play">PLAY AGAIN</string>
+    <string name="find_the_number">Find the number</string>
+    <string name="your_lives">Your Lives</string>
+    <string name="heart_icon">heart_icon</string>
+    <string name="other_apps"><u>My other apps</u></string>
 </resources>
