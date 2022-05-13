@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
-            android:background="@drawable/tile_background"
+            android:background="@{tile.isSelected ? @drawable/tile_active_background : @drawable/tile_inactive_background}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

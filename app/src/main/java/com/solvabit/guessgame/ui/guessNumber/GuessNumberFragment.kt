@@ -73,9 +73,11 @@ class GuessNumberFragment : Fragment() {
         when (isCorrect) {
             true -> {
                 dialogBinding.headingDialog.text = resources.getString(R.string.you_win)
+                dialogBinding.animationView.setAnimation(R.raw.trophy_animation)
             }
             false -> {
                 dialogBinding.headingDialog.text = resources.getString(R.string.you_lose)
+                dialogBinding.animationView.setAnimation(R.raw.sad_emoji_lose_animation)
             }
         }
         dialogBinding.buttonDialog.text = resources.getString(R.string.play_again)
@@ -99,7 +101,7 @@ class GuessNumberFragment : Fragment() {
             Log.i(TAG, "onWrongTileSelected: ${viewModel.tilesList.value?.get(tile.position)?.isSelected}")
             return
         }
-        tilesCardBinding.tileCard.setBackgroundColor(resources.getColor(R.color.pink_200))
+        tilesCardBinding.tileCard.setBackgroundResource(R.drawable.tile_active_background)
         tilesCardBinding.textViewTile.text = viewModel.wrongTileSelected(tile.position)
     }
 }

@@ -7,31 +7,55 @@
 
     </data>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="40dp">
+        android:background="@color/white"
+        android:padding="30dp">
 
         <TextView
             android:id="@+id/heading_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16dp"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:fontFamily="@font/bungee_shade"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="You Win" />
 
-        <Button
-            android:id="@+id/button_dialog"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            style="@style/default_button_style"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/heading_dialog"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"
+            android:padding="20dp"
+            tools:src="@tools:sample/avatars" />
+
+        <Button
+            android:id="@+id/button_dialog"
+            style="@style/default_button_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/animationView"
             tools:text="Play again!" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </layout>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -30,21 +31,34 @@ class ChooseNumberFragment : Fragment() {
 
     private fun initializeButtonClicks() {
         binding.addButton.setOnClickListener {
-            val number = binding.editTextView.text.toString().toInt().plus(1)
-            binding.editTextView.setText(number.toString())
+            if(binding.editTextView.text.toString().isNotEmpty()) {
+                val number = binding.editTextView.text.toString().toInt().plus(1)
+                binding.editTextView.setText(number.toString())
+            }
+            else
+                binding.editTextView.setText("0")
         }
 
         binding.minusButton.setOnClickListener {
-            val number = binding.editTextView.text.toString().toInt().minus(1)
-            binding.editTextView.setText(number.toString())
+            if(binding.editTextView.text.toString().isNotEmpty()) {
+                val number = binding.editTextView.text.toString().toInt().minus(1)
+                binding.editTextView.setText(number.toString())
+            }
+            else
+                binding.editTextView.setText("0")
         }
 
         binding.startGameButton.setOnClickListener {
-            this.findNavController().navigate(
-                ChooseNumberFragmentDirections.actionChooseNumberFragmentToGuessNumberFragment(
-                    binding.editTextView.text.toString().toInt()
+            if(binding.editTextView.text.toString().isNotEmpty()) {
+                this.findNavController().navigate(
+                    ChooseNumberFragmentDirections.actionChooseNumberFragmentToGuessNumberFragment(
+                        binding.editTextView.text.toString().toInt()
+                    )
                 )
-            )
+            }
+            else {
+                Toast.makeText(context, "Please select a number first!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

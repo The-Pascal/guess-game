@@ -16,9 +16,12 @@ class GuessNumberViewModel: ViewModel() {
     val showDialog: LiveData<Boolean>
         get() = _showDialog
 
-    private var remainingChances = 3
+    private val _remainingChances = MutableLiveData<Int>()
+    val remainingChances: LiveData<Int>
+        get() = _remainingChances
 
     init {
+        _remainingChances.value = 3
         _tilesList.value = List(9) {
             Tile(it, null, false)
         }
@@ -35,8 +38,8 @@ class GuessNumberViewModel: ViewModel() {
     }
 
     fun wrongTileSelected(position: Int): String {
-        remainingChances = remainingChances.minus(1)
-        if(remainingChances<=0) {
+        _remainingChances.value = _remainingChances.value?.minus(1)
+        if(_remainingChances.value == 0) {
             showDialog(false)
         }
         _tilesList.value?.toMutableList()?.let {

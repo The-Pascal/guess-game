@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Guess Game</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="you_win">YOU WIN!! 😀</string>
-    <string name="you_lose">YOU LOSE!! 😓</string>
+    <string name="you_win">YOU WON!! 😀</string>
+    <string name="you_lose">BETTER LUCK NEXT TIME!</string>
     <string name="play_again">Play Again</string>
     <string name="guess_game">Guess Game</string>
 </resources>
